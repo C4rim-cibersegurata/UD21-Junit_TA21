@@ -52,7 +52,7 @@ public class Calculadora extends JFrame implements ActionListener {
 			numeros.add(arrayNums[i]);
 			arrayNums[i].addActionListener(this);
 		}
-		JButton teclaComa = new JButton(",");//y la tecla de la coma
+		JButton teclaComa = new JButton(".");//y la tecla de la coma
 		numeros.add(teclaComa);
 		teclaComa.addActionListener(this);
 		
@@ -83,19 +83,48 @@ public class Calculadora extends JFrame implements ActionListener {
 		resultado.setBounds(61, 10, 268, 51);
 		getContentPane().add(resultado);
 		
-		JLabel MuestraResultado = new JLabel("aa");
-		resultado.add(MuestraResultado);
+		JLabel mostrar = new JLabel(" ");
+		resultado.add(mostrar);
+		MuestraResultado = mostrar;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 	      String command = e.getActionCommand();
 	      if (command.charAt(0) == 'C') {                      
-	    	  MuestraResultado.setText("aaa");
-	      }/*else if (command.charAt(0) == '=') {                    
-	    	  MuestraResultado.setText(evaluate(inputBox.getText()));
+	    	  MuestraResultado.setText("");
+	      }else if (command.charAt(0) == '=') {                    
+	    	  MuestraResultado.setText(evaluate(MuestraResultado.getText()));
 	      }else {                                
-	    	  MuestraResultado.setText(inputBox.getText() + command);
-	      }*/
+	    	  MuestraResultado.setText(MuestraResultado.getText() + command);
+	      }
 	   }
+	public static String evaluate(String expression) {
+	      char[] arr = expression.toCharArray();
+	      String operand1 = "";String operand2 = "";String operator = "";
+	      double result = 0;
 
+	      for (int i = 0; i < arr.length; i++) {
+	         if (arr[i] >= '0' && arr[i] <= '9' || arr[i] == '.') {
+	            if(operator.isEmpty()){
+	               operand1 += arr[i];
+	            }else{
+	               operand2 += arr[i];
+	            }
+	         }  
+
+	         if(arr[i] == '+' || arr[i] == '-' || arr[i] == '/' || arr[i] == 'X') {
+	            operator += arr[i];
+	         }
+	      }
+
+	      if (operator.equals("+"))
+	         result = (Double.parseDouble(operand1) + Double.parseDouble(operand2));
+	      else if (operator.equals("-"))
+	         result = (Double.parseDouble(operand1) - Double.parseDouble(operand2));
+	      else if (operator.equals("/"))
+	         result = (Double.parseDouble(operand1) / Double.parseDouble(operand2));
+	      else
+	         result = (Double.parseDouble(operand1) * Double.parseDouble(operand2));          
+	      return operand1 + operator + operand2 + "=" +result;
+	   }    
 }
