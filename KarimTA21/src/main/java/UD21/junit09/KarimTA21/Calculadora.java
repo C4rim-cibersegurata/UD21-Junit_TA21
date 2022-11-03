@@ -93,13 +93,13 @@ public class Calculadora extends JFrame implements ActionListener {
 	      if (command.charAt(0) == 'C') {                      
 	    	  MuestraResultado.setText("");
 	      }else if (command.charAt(0) == '=') {                    
-	    	  MuestraResultado.setText(evaluate(MuestraResultado.getText()));
+	    	  MuestraResultado.setText(calcular(MuestraResultado.getText()));
 	      }else {                                
 	    	  MuestraResultado.setText(MuestraResultado.getText() + command);
 	      }
 	   }
-	public static String evaluate(String expression) {
-	      char[] arr = expression.toCharArray();
+	public static String calcular(String operacion) {
+	      char[] arr = operacion.toCharArray();
 	      String operand1 = "";String operand2 = "";String operator = "";
 	      double result = 0;
 
